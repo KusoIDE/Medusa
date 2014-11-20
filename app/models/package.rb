@@ -5,6 +5,8 @@ class Package
   include Mongoid::Timestamps
 
   field :name
+  field :description
+
   field :home_page,         default: ''
   field :documentation_url, default: ''
   field :download_url,      default: ''
@@ -22,6 +24,8 @@ class Package
   field :views,     types: Integer, default: 0
 
   has_and_belongs_to_many :authors, class_name: 'User', index: true
+
+  validates :name, presence: true
 
   index({ name: 1 }, { unique: true, background: true })
 
