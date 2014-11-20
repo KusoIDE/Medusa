@@ -3,13 +3,27 @@ Doorkeeper.configure do
   # Currently supported options are :active_record, :mongoid2, :mongoid3, :mongo_mapper
   orm :mongoid4
 
-  # This block will be called to check whether the resource owner is authenticated or not.
-  resource_owner_authenticator do
-    fail "Please configure doorkeeper resource_owner_authenticator block located in #{__FILE__}"
+ # This block will be called to check whether the
+  # resource owner is authenticated or not
+  resource_owner_authenticator do |routes|
     # Put your resource owner authentication logic here.
-    # Example implementation:
-    #   User.find_by_id(session[:user_id]) || redirect_to(new_user_session_url)
+    # If you want to use named routes from your app you need
+    # to call them on routes object eg.
+    # routes.new_user_session_path
+    current_user || warden.authenticate!(:scope => :user)
   end
+
+  resource_owner_from_credentials do
+    warden.authenticate!(:scope => :user)
+  end
+
+  # Issue access tokens with refresh token (disabled by default)
+  use_refresh_token
+
+  # Define access token scopes for your provider
+  # For more information go to https://github.com/applicake/doorkeeper/wiki/Using-Scopes
+  default_scopes  :public
+  optional_scopes :write
 
   # If you want to restrict access to the web interface for adding oauth authorized applications, you need to declare the block below.
   # admin_authenticator do
