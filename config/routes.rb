@@ -2,10 +2,12 @@ Rails.application.routes.draw do
 
   devise_for :users
   use_doorkeeper
-  get 'packages/index'
 
-  get 'packages/archive_contents'
+  namespace :api, defaults: {format: 'json'} do
+    namespace :v1 do
+      get '/packages/' => 'packages#index'
+      get '/packages/archive-contents' => 'packages#archive_content'
+    end
+  end
 
-  get '/packages/index' => 'packages#index'
-  get '/packages/archive-contents' => 'packages#archive_content'
 end
