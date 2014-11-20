@@ -37,6 +37,12 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
     arel (6.0.0.beta2)
+    awesome_print (1.2.0)
+    bcrypt (3.1.9)
+    better_errors (2.0.0)
+      coderay (>= 1.0.0)
+      erubis (>= 2.6.6)
+      rack (>= 0.9.0)
     binding_of_caller (0.7.3.pre1)
       debug_inspector (>= 0.0.1)
     bson (2.3.0)
@@ -45,6 +51,7 @@ GEM
       columnize (~> 0.8)
       debugger-linecache (~> 1.2)
       slop (~> 3.6)
+    coderay (1.1.0)
     coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.0)
@@ -54,14 +61,25 @@ GEM
     coffee-script-source (1.8.0)
     columnize (0.8.9)
     connection_pool (2.0.0)
+    daemons (1.1.9)
     debug_inspector (0.0.2)
     debugger-linecache (1.2.0)
+    devise (3.4.1)
+      bcrypt (~> 3.0)
+      orm_adapter (~> 0.1)
+      railties (>= 3.2.6, < 5)
+      responders
+      thread_safe (~> 0.1)
+      warden (~> 1.2.3)
     doorkeeper (1.4.0)
       railties (>= 3.1)
     erubis (2.7.0)
+    eventmachine (1.0.3)
     execjs (2.2.2)
     globalid (0.3.0)
       activesupport (>= 4.1.0)
+    haml (4.0.5)
+      tilt
     hike (1.2.3)
     i18n (0.7.0.beta1)
     jbuilder (2.2.5)
@@ -76,6 +94,16 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
+    mailcatcher (0.2.4)
+      eventmachine
+      haml
+      i18n
+      json
+      mail
+      sinatra
+      skinny (>= 0.1.2)
+      sqlite3-ruby
+      thin
     mime-types (2.4.3)
     mini_portile (0.6.1)
     minitest (5.4.3)
@@ -93,7 +121,12 @@ GEM
       mini_portile (~> 0.6.0)
     optionable (0.2.0)
     origin (2.1.1)
+    orm_adapter (0.5.0)
+    quiet_assets (1.0.3)
+      railties (>= 3.1, < 5.0)
     rack (1.6.0.beta)
+    rack-protection (1.5.3)
+      rack
     rack-test (0.6.2)
       rack (>= 1.0)
     rails (4.2.0.beta4)
@@ -123,6 +156,8 @@ GEM
     rake (10.3.2)
     rdoc (4.1.2)
       json (~> 1.4)
+    responders (1.1.1)
+      railties (>= 3.2, < 4.2)
     sass (3.4.8)
     sass-rails (5.0.0.beta1)
       railties (>= 4.0.0, < 5.0)
@@ -132,6 +167,16 @@ GEM
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
+    simple_form (3.0.2)
+      actionpack (~> 4.0)
+      activemodel (~> 4.0)
+    sinatra (1.4.5)
+      rack (~> 1.4)
+      rack-protection (~> 1.4)
+      tilt (~> 1.3, >= 1.3.4)
+    skinny (0.2.3)
+      eventmachine (~> 1.0.0)
+      thin (~> 1.5.0)
     slop (3.6.0)
     spring (1.1.3)
     sprockets (2.12.3)
@@ -143,6 +188,13 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (~> 2.8)
+    sqlite3 (1.3.10)
+    sqlite3-ruby (1.3.3)
+      sqlite3 (>= 1.3.3)
+    thin (1.5.1)
+      daemons (>= 1.0.9)
+      eventmachine (>= 0.12.6)
+      rack (>= 1.0.0)
     thor (0.19.1)
     thread_safe (0.3.4)
     tilt (1.4.1)
@@ -153,6 +205,8 @@ GEM
     uglifier (2.5.3)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    warden (1.2.3)
+      rack (>= 1.0)
     web-console (2.0.0.beta4)
       activemodel (~> 4.0)
       binding_of_caller (= 0.7.3.pre1)
@@ -163,15 +217,22 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  awesome_print
+  better_errors
+  binding_of_caller
   byebug
   coffee-rails (~> 4.1.0)
+  devise
   doorkeeper
   jbuilder (~> 2.0)
   jquery-rails (~> 4.0.0.beta2)
+  mailcatcher
   mongoid
+  quiet_assets
   rails (= 4.2.0.beta4)
   sass-rails (~> 5.0.0.beta1)
   sdoc (~> 0.4.0)
+  simple_form
   spring
   turbolinks
   uglifier (>= 1.3.0)
