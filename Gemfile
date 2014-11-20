@@ -47,11 +47,18 @@ group :development, :test do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'quiet_assets'
+  gem 'dotenv-rails'
 end
 
 gem 'simple_form'
-
+gem 'autoprefixer-rails'
 gem 'mongoid'
 
 gem 'devise'
 gem 'doorkeeper'
+
+gem 'slim'
+
+# assets
+gem 'bootstrap-sass'
+gem 'bootswatch-rails'
