@@ -43,3 +43,5 @@ end
 
 
 gem 'mongoid'
+
+gem 'doorkeeper'

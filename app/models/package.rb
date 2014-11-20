@@ -2,11 +2,11 @@
 class Package
 
   include Mongoid::Document
-  include Mongoid::Timestamp
+  include Mongoid::Timestamps
 
   field :name, type: String
   field :home_page, type: String
   field :documents, type: String
-  field :versions, type: List
+  field :versions, type: Array
   field :dependencies, type: Hash
 end

@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  use_doorkeeper
   get 'packages/index'
 
   get 'packages/archive_contents'
