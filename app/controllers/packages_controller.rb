@@ -1,7 +1,7 @@
 class PackagesController < ApplicationController
-  def index
+  def archive_contents
   end
 
-  def archive_contents
+  def index
   end
 end

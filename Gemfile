@@ -57,7 +57,7 @@ gem 'mongoid'
 gem 'devise'
 gem 'doorkeeper'
 
-gem 'slim'
+gem 'slim-rails'
 
 # assets
 gem 'bootstrap-sass'
