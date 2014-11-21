@@ -7,7 +7,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 
-User.create(first_name: 'Sameer', last_name: 'Rahmani',
-            email: 'lxsameer@gnu.org')
+User.create!(first_name: 'Sameer', last_name: 'Rahmani',
+            email: 'lxsameer@gnu.org', password: '123123123')
 
-Package.create(name: 'test-package')
+Package.create!(name: 'test-package')

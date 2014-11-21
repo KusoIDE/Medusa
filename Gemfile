@@ -62,3 +62,5 @@ gem 'slim-rails'
 # assets
 gem 'bootstrap-sass'
 gem 'bootswatch-rails'
+
+gem 'responders', '~> 2.0'
