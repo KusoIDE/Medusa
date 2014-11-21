@@ -20,8 +20,8 @@ class Package
 
   embeds_many :dependencies, class_name: 'PackageDependency'
 
-  field :downloads, types: Integer, default: 0
-  field :views,     types: Integer, default: 0
+  field :downloads, type: Integer, default: 0
+  field :views,     type: Integer, default: 0
 
   has_and_belongs_to_many :authors, class_name: 'User', index: true
 
