@@ -1,0 +1,4 @@
+
+* Notes
+** Create new 'ActionView::Template.register_template_handle' for elisp templates
+   Take a look at  http://railscasts.com/episodes/379-template-handlers
