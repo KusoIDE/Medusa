@@ -13,7 +13,9 @@ class Api::V1::PackagesController < ApplicationController
   def index
   end
 
+  # POST /packages
   def create
+
   end
 
   def update

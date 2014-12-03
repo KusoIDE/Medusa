@@ -66,3 +66,5 @@ gem 'bootstrap-sass'
 gem 'bootswatch-rails'
 
 gem 'responders', '~> 2.0'
+gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
+gem 'mongoid-grid_fs'
