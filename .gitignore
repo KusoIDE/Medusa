@@ -11,3 +11,4 @@
 /log/*.log
 /tmp
 **/.sass-cache/*
+.env
