@@ -2,8 +2,6 @@ class Api::V1::PackagesController < ApplicationController
 
   respond_to :html, :json
 
-  before_action :load_grid_fs
-
   def archive_contents
     @packages = Package.first
     #respond_with @packages
@@ -22,9 +20,11 @@ class Api::V1::PackagesController < ApplicationController
     package_path = ENV['PACKAGE_PATH']
     package_path = "#{Rails.root}/#{package_path}/#{filename}"
 
-    FileUtils.cp file.path,
+    FileUtils.cp file.path, package_path
 
-    render :nothing => true
+    respond_to do |f|
+      f.json { render nothing: true }
+    end
   end
 
   def update
@@ -35,7 +35,4 @@ class Api::V1::PackagesController < ApplicationController
 
   private
 
-  def load_grid_fs
-    @grid_fs = Mongoid::GridFs
-  end
 end
