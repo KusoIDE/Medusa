@@ -15,10 +15,17 @@ class Api::V1::PackagesController < ApplicationController
 
   # POST /packages
   def create
-    file = params[:package]
-    filename = file.original_filename
-    package_path = ENV['PACKAGE_PATH']
-    package_path = "#{Rails.root}/#{package_path}/#{filename}"
+    file = creation_params[:package]
+    package_name = creation_params[:name].downcase
+    version = creation_params[:version]
+    filename, *ext = file.original_filename.split('.')
+
+    package_path = ENV['PACKAGE_PATH'].downcase
+    package_path = "#{Rails.root}/#{package_path}#{package_name}"
+
+    FileUtils.mkdir_p package_path
+
+    package_path = "#{package_path}/#{filename}-#{version}.#{ext.join('.')}"
 
     FileUtils.cp file.path, package_path
 
@@ -35,4 +42,7 @@ class Api::V1::PackagesController < ApplicationController
 
   private
 
+  def creation_params
+    params.permit(:name, :package, :version)
+  end
 end
