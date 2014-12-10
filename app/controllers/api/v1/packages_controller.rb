@@ -21,7 +21,7 @@ class Api::V1::PackagesController < ApplicationController
     filename, *ext = file.original_filename.split('.')
 
     package_path = ENV['PACKAGE_PATH'].downcase
-    package_path = "#{Rails.root}/#{package_path}#{package_name}"
+    package_path = "#{Rails.root}/#{package_path}/#{package_name}"
 
     FileUtils.mkdir_p package_path
 
@@ -43,6 +43,6 @@ class Api::V1::PackagesController < ApplicationController
   private
 
   def creation_params
-    params.permit(:name, :package, :version)
+    params.permit(:name, :package, :version, :description)
   end
 end
