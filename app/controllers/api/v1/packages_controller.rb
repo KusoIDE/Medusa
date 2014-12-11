@@ -16,21 +16,31 @@ class Api::V1::PackagesController < ApplicationController
   # POST /packages
   def create
     file = creation_params[:package]
-    package_name = creation_params[:name].downcase
+    package_name = creation_params[:name]
     version = creation_params[:version]
-    filename, *ext = file.original_filename.split('.')
-
-    package_path = ENV['PACKAGE_PATH'].downcase
-    package_path = "#{Rails.root}/#{package_path}/#{package_name}"
-
-    FileUtils.mkdir_p package_path
-
-    package_path = "#{package_path}/#{filename}-#{version}.#{ext.join('.')}"
-
-    FileUtils.cp file.path, package_path
+    description = creation_params[:description]
 
     respond_to do |f|
-      f.json { render nothing: true }
+
+      if file.nil? || package_name.nil? || version.nil?
+        f.json { render json: { msg: 'Wrong parameters' }, stattus: :bad_request }
+      else
+
+        package_name = package_name.downcase
+
+        filename, *ext = file.original_filename.split('.')
+
+        package_path = ENV['PACKAGE_PATH'].downcase
+        package_path = "#{Rails.root}/#{package_path}/#{package_name}"
+
+        FileUtils.mkdir_p package_path
+
+        package_path = "#{package_path}/#{filename}-#{version}.#{ext.join('.')}"
+
+        FileUtils.cp file.path, package_path
+
+        f.json { render nothing: true }
+      end
     end
   end
 
