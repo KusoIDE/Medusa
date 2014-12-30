@@ -20,6 +20,16 @@ class Api::V1::PackagesController < ApplicationController
     version = creation_params[:version]
     description = creation_params[:description]
 
+    with_package pkg_name do |pkg|
+      return conflict if pkg.versions.keys.include? version
+
+      pkg.versions[version] = 0
+      pkg.description = description
+      pkg.dependencies = dependencies.map do |dep|
+        PackageDependency.new(name: dep)
+      end
+    end
+
     respond_to do |f|
 
       if file.nil? || package_name.nil? || version.nil?
@@ -59,5 +69,17 @@ class Api::V1::PackagesController < ApplicationController
 
   def creation_params
     params.permit(:name, :package, :version, :description)
+  end
+
+  def with_package(pkg_name)
+    package = Package.find_or_create_by(name: pkg_name)
+
+    yield package
+  ensure
+    package.save
+  end
+
+  def conflict
+    render nothing: true, status: 409
   end
 end

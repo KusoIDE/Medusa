@@ -5,4 +5,8 @@ class Author
   field :last_name
 
   field :email,              type: String, default: ''
+
+  def name
+    "#{first_name} #{last_name}"
+  end
 end

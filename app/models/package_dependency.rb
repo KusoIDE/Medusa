@@ -4,6 +4,7 @@ class PackageDependency
   include Mongoid::Document
 
   field :version
+  field :name
 
   field :depends_on, type: Hash
 

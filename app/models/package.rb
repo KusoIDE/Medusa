@@ -14,6 +14,7 @@ class Package
   field :wiki_url,          default: ''
   field :source_code_url,   default: ''
 
+  field :upload_hash,       default: ''
   # Structure of this field is like:
   # {VERSION: DOWNLOADS, .... }
   field :versions, type: Hash
@@ -35,5 +36,10 @@ class Package
 
   index({ name: 1 }, { unique: true, background: true })
 
+  def generate_hash
+    require 'digest'
+    self.upload_hash = Digest::SHA256.hexdigest DateTime.now
+    upload_hash
+  end
 
 end
