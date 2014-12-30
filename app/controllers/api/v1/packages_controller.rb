@@ -44,6 +44,11 @@ class Api::V1::PackagesController < ApplicationController
     end
   end
 
+  # PUT /packages
+  def upload_file
+    package_id = params[:package_id]
+  end
+
   def update
   end
 

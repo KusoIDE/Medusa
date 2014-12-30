@@ -22,11 +22,14 @@ class Package
   field :packages, type: Hash
 
   embeds_many :dependencies, class_name: 'PackageDependency'
+  embeds_many :development_dependencies, class_name: 'PackageDependency'
 
   field :downloads, type: Integer, default: 0
   field :views,     type: Integer, default: 0
 
-  has_and_belongs_to_many :authors, class_name: 'User', index: true
+  has_and_belongs_to_many :owners, class_name: 'User', index: true
+
+  embeds_many :authors
 
   validates :name, presence: true
 
