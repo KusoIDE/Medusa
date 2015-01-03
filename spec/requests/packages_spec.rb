@@ -2,21 +2,25 @@ require 'rails_helper'
 
 RSpec.describe 'Package API' do
 
-  let!(:json) {
-    JSON.parse(response.body)
-  }
-
   context 'V1' do
     context 'Packages list' do
       pending 'Complete this'
     end
 
     context 'Create new package' do
-      it 'is not valid without name' do
-        post '/api/v1/packages', {}
 
-        expect(response.status).to eq(400)
-        expect(json).to include?('errors')
+      [:name, :version, :description].each do |field|
+
+        it "is not valid without #{field}" do
+          params = attributes_for(:package_params) do |x|
+            x[field] = nil
+          end
+
+          post '/api/v1/packages', params
+
+          expect(response.status).to eq(400)
+          expect(response).to have_node(:errors)
+        end
       end
     end
   end
