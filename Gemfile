@@ -50,6 +50,11 @@ group :development, :test do
   gem 'binding_of_caller'
   gem 'quiet_assets'
   gem 'dotenv-rails'
+
+  gem 'rspec-rails'
+  gem 'capybara'
+  gem 'capybara-webkit'
+  gem 'factory_girl'
 end
 
 gem 'simple_form'
