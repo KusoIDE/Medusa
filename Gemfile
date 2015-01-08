@@ -40,7 +40,8 @@ group :development, :test do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
-
+  gem 'spring-commands-rspec'
+  gem 'guard-rspec'
   # dummy SMTP
   gem 'mailcatcher'
 
@@ -55,7 +56,7 @@ group :development, :test do
   gem 'capybara-webkit'
   gem 'factory_girl_rails'
   gem 'api_matchers'
-  gem 'faker'
+  gem 'ffaker'
 end
 
 gem 'simple_form'

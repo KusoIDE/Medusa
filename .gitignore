@@ -13,3 +13,4 @@
 **/.sass-cache/*
 .env
 packages/**/*
+*~
