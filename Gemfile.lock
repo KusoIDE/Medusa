@@ -106,7 +106,8 @@ GEM
     factory_girl_rails (4.5.0)
       factory_girl (~> 4.5.0)
       railties (>= 3.0.0)
-    ffaker (1.25.0)
+    faker (1.4.3)
+      i18n (~> 0.5)
     ffi (1.9.6)
     formatador (0.2.5)
     globalid (0.3.0)
@@ -327,7 +328,7 @@ DEPENDENCIES
   doorkeeper
   dotenv-rails
   factory_girl_rails
-  ffaker
+  faker
   guard-rspec
   jbuilder (~> 2.0)
   jquery-rails (~> 4.0.0.beta2)

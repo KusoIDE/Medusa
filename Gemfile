@@ -56,7 +56,7 @@ group :development, :test do
   gem 'capybara-webkit'
   gem 'factory_girl_rails'
   gem 'api_matchers'
-  gem 'ffaker'
+  gem 'faker'
 end
 
 gem 'simple_form'
