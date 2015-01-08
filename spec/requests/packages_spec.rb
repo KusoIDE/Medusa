@@ -12,8 +12,7 @@ RSpec.describe 'Package API' do
       [:name, :version, :description].each do |field|
 
         it "is not valid without #{field}" do
-          params = attributes_for(:package_without_name)
-          puts ">>>>> " , params
+          params = attributes_for("package_without_#{field}".to_sym)
           post '/api/v1/packages', params
 
           expect(response.status).to eq(400)

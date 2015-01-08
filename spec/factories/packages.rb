@@ -10,5 +10,13 @@ FactoryGirl.define do
       name nil
     end
 
+    factory :package_without_version do
+      version nil
+    end
+
+    factory :package_without_description do
+      description nil
+    end
+
   end
 end
