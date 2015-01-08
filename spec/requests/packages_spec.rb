@@ -9,7 +9,7 @@ RSpec.describe 'Package API' do
 
     context 'Create new package' do
 
-      [:name, :version, :description].each do |field|
+      [:name, :version, :description, :package].each do |field|
 
         it "is not valid without #{field}" do
           params = attributes_for("package_without_#{field}".to_sym)
