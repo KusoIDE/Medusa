@@ -1,6 +1,9 @@
 class ApiController < ApplicationController
   respond_to :json
 
+  rescue_from(ActionController::ParameterMissing,
+              with: :respond_with_bad_request)
+
   private
 
   def with_package(pkg_name)
@@ -11,7 +14,12 @@ class ApiController < ApplicationController
     package.save
   end
 
-  def bad_request msg: 'Wrong parameters'
+  def respond_with_bad_request(exception)
+    msg = exception.message
+    bad_request(msg: msg)
+  end
+
+  def bad_request(msg: 'Wrong argument')
     respond_to do |f|
       f.json { render json: { msg: msg }, stattus: :bad_request }
     end
