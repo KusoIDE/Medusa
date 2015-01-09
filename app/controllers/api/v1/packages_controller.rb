@@ -1,6 +1,4 @@
-class Api::V1::PackagesController < ApplicationController
-
-  respond_to :html, :json
+class Api::V1::PackagesController < ApiController
 
   def archive_contents
     @packages = Package.first
@@ -68,18 +66,9 @@ class Api::V1::PackagesController < ApplicationController
   private
 
   def creation_params
-    params.permit(:name, :package, :version, :description)
-  end
-
-  def with_package(pkg_name)
-    package = Package.find_or_create_by(name: pkg_name)
-
-    yield package
-  ensure
-    package.save
-  end
-
-  def conflict
-    render nothing: true, status: 409
+    params.require(:name)
+    params.require(:package)
+    params.require(:version)
+    params.require(:description)
   end
 end
