@@ -19,6 +19,13 @@ RSpec.describe 'Package API' do
           expect(response.body).to have_node(:errors)
         end
       end
+
+      it 'respond with 409 (conflict) if same package exists' do
+        package = create(:package)
+        params = package.attributes_for
+
+      end
+
     end
   end
 end
