@@ -24,8 +24,9 @@ RSpec.describe 'Package API' do
         params = attributes_for(:package_params)
 
         post '/api/v1/packages', params
-
         expect(response.status).to eq(200)
+        package = Package.find_by(name: params[:name])
+        expect(package).to_not be(nil)
       end
 
       it 'respond with 409 (conflict) if same package exists' do

@@ -17,10 +17,10 @@ class Package
   field :upload_hash,       default: ''
   # Structure of this field is like:
   # {VERSION: DOWNLOADS, .... }
-  field :versions, type: Hash
+  field :versions, type: Hash, default: {}
   # Structure of this field is like:
   # {VERSION: PACKAGE_PATH, .... }
-  field :packages, type: Hash
+  field :packages, type: Hash, default: {}
 
   embeds_many :dependencies, class_name: 'PackageDependency'
   embeds_many :development_dependencies, class_name: 'PackageDependency'

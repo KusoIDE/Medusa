@@ -8,9 +8,8 @@ class ApiController < ApplicationController
 
   def with_package(pkg_name)
     package = Package.find_or_create_by(name: pkg_name)
-
     yield package
-  ensure
+    puts " <<<<<<<<<<<"
     package.save
   end
 
@@ -20,6 +19,7 @@ class ApiController < ApplicationController
   end
 
   def bad_request(msg: 'Wrong argument')
+    logger.warn "Bad request from '#{request.remote_ip}'"
     respond_to do |f|
       f.json { render json: { errors: msg }, status: :bad_request }
     end

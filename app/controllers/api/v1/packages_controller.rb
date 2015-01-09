@@ -13,13 +13,14 @@ class Api::V1::PackagesController < ApiController
 
   # POST /packages
   def create
+    puts ">>>>>>>>>", creation_params
     file = creation_params[:package]
     package_name = creation_params[:name]
     version = creation_params[:version]
     description = creation_params[:description]
 
-    with_package pkg_name do |pkg|
-      return conflict if pkg.versions.keys.include? version
+    with_package package_name do |pkg|
+      return conflict if pkg.new_record? && pkg.versions.keys.include?(version)
 
       pkg.versions[version] = 0
       pkg.description = description
@@ -70,5 +71,6 @@ class Api::V1::PackagesController < ApiController
     params.require(:package)
     params.require(:version)
     params.require(:description)
+    params
   end
 end
