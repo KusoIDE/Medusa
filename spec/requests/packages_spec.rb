@@ -16,7 +16,7 @@ RSpec.describe 'Package API' do
           post '/api/v1/packages', params
 
           expect(response.status).to eq(400)
-          expect(response).to have_node(:errors)
+          expect(response.body).to have_node(:errors)
         end
       end
     end

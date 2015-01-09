@@ -21,7 +21,7 @@ class ApiController < ApplicationController
 
   def bad_request(msg: 'Wrong argument')
     respond_to do |f|
-      f.json { render json: { msg: msg }, stattus: :bad_request }
+      f.json { render json: { errors: msg }, status: :bad_request }
     end
   end
 
