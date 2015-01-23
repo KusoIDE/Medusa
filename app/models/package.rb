@@ -41,5 +41,4 @@ class Package
     self.upload_hash = Digest::SHA256.hexdigest DateTime.now
     upload_hash
   end
-
 end
