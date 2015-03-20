@@ -13,7 +13,6 @@ class Api::V1::PackagesController < ApiController
 
   # POST /packages
   def create
-    puts ">>>>>>>>>", creation_params
     file = creation_params[:package]
     package_name = creation_params[:name]
     version = creation_params[:version]
