@@ -67,7 +67,7 @@ class Api::V1::PackagesController < ApiController
 
   def creation_params
     params.require(:name)
-    params.require(:package)
+    params.require(:package).permit(:filename, :data, :content_type)
     params.require(:version)
     params.require(:description)
     params
