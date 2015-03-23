@@ -1,11 +1,11 @@
 require 'tempfile'
 
-module Concerns::Package::Fields
+module Concerns::Package::Callbacks
 
   extend ActiveSupport::Concern
 
-  included do
-    before_save :upload_file
+  def included(base)
+    base.before_save :upload_file
   end
 
   def upload_file
@@ -69,9 +69,5 @@ module Concerns::Package::Fields
       return decoded_data
     end
     nil
-  end
-
-
-  def upload_file
   end
 end

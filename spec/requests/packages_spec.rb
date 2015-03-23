@@ -24,6 +24,9 @@ RSpec.describe 'Package API' do
         params = attributes_for(:package_params)
 
         post '/api/v1/packages', params
+
+        puts "<<<<<<", response.body
+
         expect(response.status).to eq(200)
         package = Package.find_by(name: params[:name])
         expect(package).to_not be(nil)
@@ -38,6 +41,9 @@ RSpec.describe 'Package API' do
         end
 
         post '/api/v1/packages', params
+
+        puts "<<<<<<", response.body
+
         expect(response.status).to eq(409)
         expect(response.body).to have_node(:errors).includeing_text('already exists')
       end

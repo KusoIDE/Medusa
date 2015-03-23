@@ -6,6 +6,7 @@ PKG = { filename: 'sample_pkg.tar',
         content_type: 'application/x-tar',
         data: Base64.encode64(File.read(pkg_file))
       }
+
 FactoryGirl.define do
   factory :package do
     name Faker::App.name
