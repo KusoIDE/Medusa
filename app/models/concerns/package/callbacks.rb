@@ -2,7 +2,7 @@ require 'tempfile'
 
 module Concerns::Package::Fields
 
-  extends ActiveSupport::Concerns
+  extends ActiveSupport::Concern
 
   included do
     before_save :upload_file

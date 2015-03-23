@@ -1,8 +1,11 @@
 require 'faker'
+require 'base64'
 
-pkg_file = File.new("#{Rails.root}/spec/fixtures/sample_pkg.tar")
-PKG = ActionDispatch::Http::UploadedFile.new(tempfile: pkg_file,
-                                             filename: 'sample_pkg.tar')
+pkg_file = "#{Rails.root}/spec/fixtures/sample_pkg.tar"
+PKG = { filename: 'sample_pkg.tar',
+        content_type: 'application/x-tar',
+        data: Base64.encode64(File.read(pkg_file))
+      }
 FactoryGirl.define do
   factory :package do
     name Faker::App.name
@@ -16,6 +19,7 @@ FactoryGirl.define do
     version Faker::App.version
     description Faker::Lorem.paragraph
     package PKG
+    dependencies []
 
     factory :package_without_name do
       name nil
