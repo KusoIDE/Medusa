@@ -1,6 +1,6 @@
 module Concerns::Package::Fields
 
-  extends ActiveSupport::Concern
+  extend ActiveSupport::Concern
 
   included do
     field :name
