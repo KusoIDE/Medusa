@@ -9,7 +9,6 @@ class ApiController < ApplicationController
   def with_package(pkg_name)
     package = Package.find_or_create_by(name: pkg_name)
     yield package
-    puts " <<<<<<<<<<<"
     package.save
   end
 

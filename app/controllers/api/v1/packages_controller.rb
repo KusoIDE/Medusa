@@ -17,35 +17,20 @@ class Api::V1::PackagesController < ApiController
     package_name = creation_params[:name]
     version = creation_params[:version]
     description = creation_params[:description]
+    dependencies = creation_params[:dependencies]
 
-    with_package package_name do |pkg|
-      return conflict if pkg.new_record? && pkg.versions.keys.include?(version)
+    return bad_request if !valid_package?(package)
 
-      pkg.versions[version] = 0
-      pkg.description = description
-      pkg.dependencies = dependencies.map do |dep|
-        PackageDependency.new(name: dep)
-      end
-    end
+    package = Package.new(name: package_name, version_data: version,
+                          description: description,
+                          package_data: file,
+                          dependencies_data: dependencies)
+
+    #package.dependencies = dependencies.map do |dep|
+    #  PackageDependency.new(name: dep)
+    #end
 
     respond_to do |f|
-
-      if file.nil? || package_name.nil? || version.nil?
-        f.json { render json: { msg: 'Wrong parameters' }, stattus: :bad_request }
-      else
-
-        package_name = package_name.downcase
-
-        filename, *ext = file.original_filename.split('.')
-
-        package_path = ENV['PACKAGE_PATH'].downcase
-        package_path = "#{Rails.root}/#{package_path}/#{package_name}"
-
-        FileUtils.mkdir_p package_path
-
-        package_path = "#{package_path}/#{filename}-#{version}.#{ext.join('.')}"
-
-        FileUtils.cp file.path, package_path
 
         f.json { render nothing: true }
       end
@@ -69,7 +54,17 @@ class Api::V1::PackagesController < ApiController
     params.require(:name)
     params.require(:package).permit(:filename, :data, :content_type)
     params.require(:version)
+    params.require(:dependencies)
     params.require(:description)
     params
+  end
+
+  def valid_package?(package)
+    fn   = package[:filename].present?
+    ct   = package[:content_type].present?
+    data = package[:data].present?
+
+    return false if p.nil
+    return fn && ct && data
   end
 end
