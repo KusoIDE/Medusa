@@ -11,6 +11,7 @@ class Api::V1::PackagesController < ApiController
   end
 
   def index
+    Package.includes(:versions).all
   end
 
   # POST /packages
@@ -22,11 +23,10 @@ class Api::V1::PackagesController < ApiController
     package = find_or_build_new_package(req_params)
 
     respond_to do |f|
-      puts "-------------" * 30, package.to_json
       if package.save
-        f.json { render nothing: true, status: :created }
+        f.json { render nothing: true, status: :created, location: package }
       else
-        f.json { render json: package.errors, status: :unprocessable_entity}
+        f.json { render json: package.errors, status: :unprocessable_entity }
       end
     end
   end
