@@ -9,7 +9,7 @@ module Concerns::Package::Validations
   end
 
   def unique_version
-    if versions.include? version_data
+    if self.versions.find(version_data).exists?
       errors.add :versions, 'Version already exists'
     end
   end
