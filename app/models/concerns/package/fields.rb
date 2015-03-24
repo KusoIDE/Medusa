@@ -13,16 +13,7 @@ module Concerns::Package::Fields
     field :wiki_url,          default: ''
     field :source_code_url,   default: ''
 
-    field :upload_hash,       default: ''
-    # Structure of this field is like:
-    # {VERSION: DOWNLOADS, .... }
-    field :versions, type: Hash, default: {}
-    # Structure of this field is like:
-    # {VERSION: PACKAGE_PATH, .... }
-    field :packages, type: Hash, default: {}
-
-    embeds_many :dependencies, class_name: 'PackageDependency'
-    embeds_many :development_dependencies, class_name: 'PackageDependency'
+    embeds_many :versions, class_name: 'PackageVersion'
 
     field :downloads, type: Integer, default: 0
     field :views,     type: Integer, default: 0

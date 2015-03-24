@@ -13,4 +13,5 @@ class Package
   validates :name, presence: true
 
   index({ name: 1 }, { unique: true, background: true })
+  index({ 'versions.version' => 1 }, { background: true })
 end
