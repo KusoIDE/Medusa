@@ -1,3 +1,5 @@
+require 'ostruct'
+
 class Api::V1::PackagesController < ApiController
 
   def archive_contents
@@ -13,18 +15,11 @@ class Api::V1::PackagesController < ApiController
 
   # POST /packages
   def create
-    file = creation_params[:package]
-    package_name = creation_params[:name]
-    version = creation_params[:version]
-    description = creation_params[:description]
-    dependencies = creation_params[:dependencies]
+    req_params = OpenStruct.new creation_params
 
-    return bad_request if !valid_package?(file)
+    return bad_request unless valid_package?(req_params.package)
 
-    package = Package.new(name: package_name, version_data: version,
-                          description: description,
-                          package_data: file,
-                          dependencies_data: dependencies)
+    package = find_or_build_new_package(req_params)
 
     respond_to do |f|
       if package.save
@@ -33,7 +28,6 @@ class Api::V1::PackagesController < ApiController
         f.json { render json: package.errors, status: :unprocessable_entity}
       end
     end
-
   end
 
     #package.dependencies = dependencies.map do |dep|
@@ -58,11 +52,23 @@ class Api::V1::PackagesController < ApiController
   end
 
   def valid_package?(package)
+    return false if package.nil?
+
     fn   = package[:filename].present?
     ct   = package[:content_type].present?
     data = package[:data].present?
 
-    return false if p.nil
     fn && ct && data
+  end
+
+  def find_or_build_new_package(req_params)
+    package = Package.find_or_initialize_by(name: req_params.name)
+
+    package.version_data      = req_params.version
+    package.description       = req_params.description
+    package.package_data      = req_params.package
+    package.dependencies_data = req_params.dependencies
+
+    package
   end
 end

@@ -62,6 +62,7 @@ end
 gem 'simple_form'
 gem 'autoprefixer-rails'
 gem 'mongoid'
+gem 'mongoid-grid_fs'
 
 gem 'devise'
 gem 'doorkeeper'
