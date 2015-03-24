@@ -6,7 +6,5 @@ class PackageDependency
   field :version
   field :name
 
-  field :depends_on, type: Hash
-
-  embedded_in :package
+  embedded_in :package_version
 end

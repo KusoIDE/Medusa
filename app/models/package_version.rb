@@ -5,7 +5,7 @@ class PackageVersion
   include Mongoid::Timestamps
 
   field :version
-  field :grid_fa_id
+  field :grid_fs_id
   field :content_type
   field :checksum
 

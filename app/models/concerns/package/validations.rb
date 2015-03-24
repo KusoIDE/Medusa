@@ -4,12 +4,13 @@ module Concerns::Package::Validations
   included do
     validate :unique_version
     validate :valid_package_data, on: :create
+    validate :base64_format, on: :create
     #validate :valid_dependencies
     #validate :content_type
   end
 
   def unique_version
-    if self.versions.find(version_data).exists?
+    if self.versions.where(version: version).exists?
       errors.add :versions, 'Version already exists'
     end
   end
@@ -26,6 +27,16 @@ module Concerns::Package::Validations
 
     if !(fn && ct && data)
       errors.add :package, "Should contains 'filename', 'data', 'content_type'"
+    end
+  end
+
+  def base64_format
+    base64_part = package_data[:data].split(',')[-1]
+
+    begin
+      @cached_content = Base64.strict_decode64(base64_part)
+    rescue ArgumentError
+      errors.add :package, 'Invalid base64'
     end
   end
 end

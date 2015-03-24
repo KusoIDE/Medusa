@@ -22,6 +22,7 @@ class Api::V1::PackagesController < ApiController
     package = find_or_build_new_package(req_params)
 
     respond_to do |f|
+      puts "-------------" * 30, package.to_json
       if package.save
         f.json { render nothing: true, status: :created }
       else
@@ -30,9 +31,6 @@ class Api::V1::PackagesController < ApiController
     end
   end
 
-    #package.dependencies = dependencies.map do |dep|
-    #  PackageDependency.new(name: dep)
-    #end
 
   def update
   end
@@ -47,6 +45,8 @@ class Api::V1::PackagesController < ApiController
     params.require(:package).permit(:filename, :data, :content_type)
     params.require(:version)
     params.permit(:dependencies)
+    params.permit(:dev_dependencies)
+
     params.require(:description)
     params
   end
@@ -64,10 +64,11 @@ class Api::V1::PackagesController < ApiController
   def find_or_build_new_package(req_params)
     package = Package.find_or_initialize_by(name: req_params.name)
 
-    package.version_data      = req_params.version
-    package.description       = req_params.description
-    package.package_data      = req_params.package
-    package.dependencies_data = req_params.dependencies
+    package.version                  = req_params.version
+    package.description              = req_params.description
+    package.package_data             = req_params.package
+    package.dependencies             = req_params.dependencies || []
+    package.development_dependencies = req_params.dev_dependencies || []
 
     package
   end
