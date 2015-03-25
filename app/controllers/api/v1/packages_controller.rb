@@ -45,7 +45,8 @@ class Api::V1::PackagesController < ApiController
     params.require(:package).permit(:filename, :data, :content_type)
     params.require(:version)
     params.require(:description)
-    params.require(:owners).permit(:email)
+    params.require(:owners)
+
     params.permit(:dependencies, :dev_dependencies, :home_page,
                   :documentation_url, :download_url, :bug_tracker_url,
                   :wiki_url, :source_code_url)
@@ -68,11 +69,20 @@ class Api::V1::PackagesController < ApiController
   def find_or_build_new_package(req_params)
     package = Package.find_or_initialize_by(name: req_params.name)
 
-    package.version                  = req_params.version
-    package.description              = req_params.description
-    package.package_data             = req_params.package
-    package.dependencies             = req_params.dependencies || []
-    package.development_dependencies = req_params.dev_dependencies || []
+    dev_deps = req_params.dev_dependencies || []
+    package.attributes = { version:      req_params.version,
+                           description:  req_params.description,
+                           package_data: req_params.package,
+                           dependencies: req_params.dependencies || [],
+                           development_dependencies: dev_deps,
+                           home_page:          req_params.home_page,
+                           documentation_url:  req_params.documentation_url,
+                           download_url:       req_params.download_url,
+                           bug_tracker_url:    req_params.bug_tracker_url,
+                           wiki_url:           req_params.wiki_url,
+                           source_code_url:    req_params.source_code_url,
+                           authors:            req_params.authors,
+                           owners:             req_params.owners }
 
     package
   end

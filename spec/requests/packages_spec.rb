@@ -25,6 +25,7 @@ RSpec.describe 'Package API' do
 
         post '/api/v1/packages', params
 
+        puts "---" * 50, response.body[15000,18000]
         expect(response.status).to eq(201)
         package = Package.find_by(name: params[:name])
         expect(package).to_not be(nil)
