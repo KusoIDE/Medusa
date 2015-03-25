@@ -30,7 +30,8 @@ FactoryGirl.define do
     wiki_url          Faker::Internet.url
     source_code_url   Faker::Internet.url
 
-    authors [{ name: Faker::Name.name, email: Faker::Internet.email }]
+    authors [{ first_name: Faker::Name.name, last_name: Faker::Name.name,
+               email: Faker::Internet.email }]
     owners [{ email: Faker::Internet.email }]
 
     factory :package_without_name do
