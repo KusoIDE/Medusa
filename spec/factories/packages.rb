@@ -21,6 +21,17 @@ FactoryGirl.define do
     description Faker::Lorem.paragraph
     package package_data
     dependencies []
+    dev_dependencies []
+
+    home_page         Faker::Internet.url
+    documentation_url Faker::Internet.url
+    download_url      Faker::Internet.url
+    bug_tracker_url   Faker::Internet.url
+    wiki_url          Faker::Internet.url
+    source_code_url   Faker::Internet.url
+
+    authors [{ name: Faker::Name.name, email: Faker::Internet.email }]
+    owners [{ email: Faker::Internet.email }]
 
     factory :package_without_name do
       name nil

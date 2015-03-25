@@ -44,10 +44,14 @@ class Api::V1::PackagesController < ApiController
     params.require(:name)
     params.require(:package).permit(:filename, :data, :content_type)
     params.require(:version)
-    params.permit(:dependencies)
-    params.permit(:dev_dependencies)
-
     params.require(:description)
+    params.require(:owners).permit(:email)
+    params.permit(:dependencies, :dev_dependencies, :home_page,
+                  :documentation_url, :download_url, :bug_tracker_url,
+                  :wiki_url, :source_code_url)
+
+    params.permit(authors: [])
+
     params
   end
 
