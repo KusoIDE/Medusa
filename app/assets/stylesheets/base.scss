@@ -5,13 +5,13 @@ $primary-highlight: #09D8A3;
   font-size: 1.8em;
 }
 .navbar-custom a {
-  padding: 5% 15% 5% 15%;
+  padding: 2% 5% 0 5%;
   color: #fff;
   border-top: 10px solid $primary-highlight;
 }
 .navbar-custom a:link,
 .navbar-custom a:hover {
-  padding: 5% 10% 5% 10%;
+  padding: 2% 5% 0 5%;
   text-decoration: none !important;
   border-top: 10px solid #373737;
 }
@@ -32,17 +32,15 @@ $primary-highlight: #09D8A3;
 .btn-big {
   color: #fff;
   text-shadow: none;
-  width: 40%;
   background-color: #222222;
-  font-size: 1.5em;
+  font-size: 1.8em;
 }
 .btn-big:hover,
 .btn-big:focus {
   color: gray;
   text-shadow: none;
-  width: 40%;
   background-color: #373737;
-  font-size: 1.5em;
+  font-size: 1.8em;
 }
 
 .footer {
@@ -63,7 +61,8 @@ $primary-highlight: #09D8A3;
 
 .footer .license {
   position: absolute;
-  padding: 2% 30% 0 30%;
+  bottom: 0;
+  margin: 0 25% 0 25%;
   color: #fff;
   font-size: 1.2em;
 }
