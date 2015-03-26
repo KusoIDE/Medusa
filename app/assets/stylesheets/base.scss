@@ -1,0 +1,69 @@
+$primary-color: #00BC8C;
+$primary-highlight: #09D8A3;
+.navbar-custom {
+  margin-top: 1%;
+  font-size: 1.8em;
+}
+.navbar-custom a {
+  padding: 5% 15% 5% 15%;
+  color: #fff;
+  border-top: 10px solid $primary-highlight;
+}
+.navbar-custom a:link,
+.navbar-custom a:hover {
+  padding: 5% 10% 5% 10%;
+  text-decoration: none !important;
+  border-top: 10px solid #373737;
+}
+.btn-custom {
+  color: #fff;
+  text-shadow: none;
+  background-color: #373737;
+  border: 1px solid #373737;
+  border-radius: 35px;
+}
+.btn-custom:hover,
+.btn-custom:focus {
+  color: #333;
+  text-shadow: none;
+  background-color: #fff;
+  border: 1px solid #fff;
+}
+.btn-big {
+  color: #fff;
+  text-shadow: none;
+  width: 40%;
+  background-color: #222222;
+  font-size: 1.5em;
+}
+.btn-big:hover,
+.btn-big:focus {
+  color: gray;
+  text-shadow: none;
+  width: 40%;
+  background-color: #373737;
+  font-size: 1.5em;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 15%;
+  background-color: #373737;
+  color: black;
+  padding: 1% 0 1% 0;
+}
+.footer i{
+  color: #fff;
+}
+.footer i:hover{
+  color: $primary-highlight;
+}
+
+.footer .license {
+  position: absolute;
+  padding: 2% 30% 0 30%;
+  color: #fff;
+  font-size: 1.2em;
+}
