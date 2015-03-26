@@ -32,7 +32,7 @@ FactoryGirl.define do
 
     authors [{ first_name: Faker::Name.name, last_name: Faker::Name.name,
                email: Faker::Internet.email }]
-    owners { [FactoryGirl.create(:user)] }
+    owners { [FactoryGirl.build(:user)] }
 
     factory :package_without_name do
       name nil
