@@ -1,3 +1,5 @@
+require 'ostruct'
+
 class Api::V1::PackagesController < ApiController
 
   def archive_contents
@@ -9,53 +11,26 @@ class Api::V1::PackagesController < ApiController
   end
 
   def index
+    Package.includes(:versions).all
   end
 
   # POST /packages
   def create
-    file = creation_params[:package]
-    package_name = creation_params[:name]
-    version = creation_params[:version]
-    description = creation_params[:description]
+    req_params = OpenStruct.new creation_params
 
-    with_package package_name do |pkg|
-      return conflict if pkg.new_record? && pkg.versions.keys.include?(version)
+    return bad_request unless valid_package?(req_params.package)
 
-      pkg.versions[version] = 0
-      pkg.description = description
-      pkg.dependencies = dependencies.map do |dep|
-        PackageDependency.new(name: dep)
-      end
-    end
+    package = find_or_build_new_package(req_params)
 
     respond_to do |f|
-
-      if file.nil? || package_name.nil? || version.nil?
-        f.json { render json: { msg: 'Wrong parameters' }, stattus: :bad_request }
+      if package.save
+        f.json { render nothing: true, status: :created, location: package }
       else
-
-        package_name = package_name.downcase
-
-        filename, *ext = file.original_filename.split('.')
-
-        package_path = ENV['PACKAGE_PATH'].downcase
-        package_path = "#{Rails.root}/#{package_path}/#{package_name}"
-
-        FileUtils.mkdir_p package_path
-
-        package_path = "#{package_path}/#{filename}-#{version}.#{ext.join('.')}"
-
-        FileUtils.cp file.path, package_path
-
-        f.json { render nothing: true }
+        f.json { render json: package.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # PUT /packages
-  def upload_file
-    package_id = params[:package_id]
-  end
 
   def update
   end
@@ -70,6 +45,45 @@ class Api::V1::PackagesController < ApiController
     params.require(:package).permit(:filename, :data, :content_type)
     params.require(:version)
     params.require(:description)
+    params.require(:owners)
+
+    params.permit(:dependencies, :dev_dependencies, :home_page,
+                  :documentation_url, :download_url, :bug_tracker_url,
+                  :wiki_url, :source_code_url)
+
+    params.permit(authors: [])
+
     params
+  end
+
+  def valid_package?(package)
+    return false if package.nil?
+
+    fn   = package[:filename].present?
+    ct   = package[:content_type].present?
+    data = package[:data].present?
+
+    fn && ct && data
+  end
+
+  def find_or_build_new_package(req_params)
+    package = Package.find_or_initialize_by(name: req_params.name)
+
+    dev_deps = req_params.dev_dependencies || []
+    package.attributes = { version:      req_params.version,
+                           description:  req_params.description,
+                           package_data: req_params.package,
+                           dependencies: req_params.dependencies || [],
+                           development_dependencies: dev_deps,
+                           home_page:          req_params.home_page,
+                           documentation_url:  req_params.documentation_url,
+                           download_url:       req_params.download_url,
+                           bug_tracker_url:    req_params.bug_tracker_url,
+                           wiki_url:           req_params.wiki_url,
+                           source_code_url:    req_params.source_code_url,
+                           authors:            req_params.authors,
+                           owners:             req_params.owners }
+
+    package
   end
 end

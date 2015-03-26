@@ -5,12 +5,28 @@ class Package
   include Mongoid::Timestamps
   include Concerns::Package::Fields
   include Concerns::Package::Callbacks
+  include Concerns::Package::Validations
 
-  # This accessor will contains data of the file to upload like
+  # **package_data** accessor will contains data of the file to upload like
   # content type, base64 encoded data and file name
-  attr_accessor :package_data
+  #
+  # **dependencies** is an array of current version dependencies. Each element
+  # would be an array or [name, version]. version can be nil.
+  #
+  # **development_dependencies** is the same as **dependencies** but for
+  # development.
+  #
+  # **version** contains the current version of the package to save.
+  #
+  # **_fs** is a temporary variable that will store the GridFS reference
+  # object.
+  #
+  # **checksum** contains the SHA1 checksum of package content on create.
+  attr_accessor(:package_data, :dependencies, :development_dependencies,
+                :version, :_fs, :checksum)
 
   validates :name, presence: true
 
   index({ name: 1 }, { unique: true, background: true })
+  index({ 'versions.version' => 1 }, { background: true })
 end
