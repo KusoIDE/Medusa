@@ -1,6 +1,8 @@
 // Place all the styles related to the site controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+$primary-color: #00BC8C;
+$primary-highlight: #09D8A3;
 .head {
   background: $primary-color;
   height: 40%;
@@ -13,7 +15,8 @@
 
 }
 .head .sub {
-  padding: 15% 0 0 35%;
+  padding-top: 10%;
+  text-align: center;
 }
 .head .sub button {
   width: 100px;
