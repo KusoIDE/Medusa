@@ -24,7 +24,8 @@ class Api::V1::PackagesController < ApiController
 
     respond_to do |f|
       if package.save
-        f.json { render nothing: true, status: :created, location: package }
+        # TODO: Add location to response header
+        f.json { render nothing: true, status: :created }
       else
         f.json { render json: package.errors, status: :unprocessable_entity }
       end
@@ -45,7 +46,6 @@ class Api::V1::PackagesController < ApiController
     params.require(:package).permit(:filename, :data, :content_type)
     params.require(:version)
     params.require(:description)
-    params.require(:owners)
 
     params.permit(:dependencies, :dev_dependencies, :home_page,
                   :documentation_url, :download_url, :bug_tracker_url,
@@ -81,9 +81,7 @@ class Api::V1::PackagesController < ApiController
                            bug_tracker_url:    req_params.bug_tracker_url,
                            wiki_url:           req_params.wiki_url,
                            source_code_url:    req_params.source_code_url,
-                           authors:            req_params.authors,
-                           owners:             req_params.owners }
-
+                           authors:            req_params.authors }
     package
   end
 end

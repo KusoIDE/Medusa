@@ -2,6 +2,9 @@ require 'rails_helper'
 
 RSpec.describe 'Package API' do
 
+  before do
+    @user = Fabricate(:user)
+  end
   context 'V1' do
     context 'Packages list' do
       pending 'Complete this'

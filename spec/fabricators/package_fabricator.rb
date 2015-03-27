@@ -10,16 +10,13 @@ package_data = { filename: 'sample_pkg.tar',
 
 Fabricator :package do
   name { Faker::App.name }
-  versions { [ Fabricate(:package_version, version: '0.9.0'),
-               Fabricate(:package_version, version: '1.0.0')] }
   description { Faker::Lorem.paragraph }
 end
 
 
 Fabricator :package_params, from: :package do
   name { Faker::App.name }
-  versions { [ Fabricate.build(:package_version, version: Faker::App.version),
-               Fabricate.build(:package_version, version: Faker::App.version)] }
+  version { Faker::App.version }
 
   description { Faker::Lorem.paragraph }
   package { package_data }
@@ -35,7 +32,6 @@ Fabricator :package_params, from: :package do
 
   authors [{ first_name: Faker::Name.name, last_name: Faker::Name.name,
              email: Faker::Internet.email }]
-  owners { [Fabricate(:user)] }
 end
 
 Fabricator :package_without_name, from: :package_params do

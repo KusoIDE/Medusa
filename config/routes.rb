@@ -5,10 +5,14 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: 'json' } do
     namespace :v1 do
-      get '/packages/' => 'packages#index'
-      post '/packages/' => 'packages#create'
-      put '/packages/:package_name' => 'packages#update'
-      delete '/packages/:package_name' => 'packages#destroy'
+      resources :packages, only: [:index, :create] do
+        collection do
+          get '/:package_name',    to: 'packages#show', as: :package
+          put '/:package_name',    to: 'packages#update'
+          delete '/:package_name', to: 'packages#destroy'
+
+        end
+      end
       get '/packages/archive-contents' => 'packages#archive_contents'
     end
   end
