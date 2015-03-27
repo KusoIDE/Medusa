@@ -12,7 +12,7 @@ RSpec.describe 'Package API' do
       [:name, :version, :description, :package].each do |field|
 
         it "is not valid without #{field}" do
-          params = attributes_for("package_without_#{field}".to_sym)
+          params = Fabricate.attributes_for("package_without_#{field}".to_sym)
           post '/api/v1/packages', params
 
           expect(response.status).to eq(400)
@@ -21,7 +21,7 @@ RSpec.describe 'Package API' do
       end
 
       it 'saves the package successfully in database' do
-        params = attributes_for(:package_params)
+        params = Fabricate.attributes_for(:package_params)
 
         post '/api/v1/packages', params
 
@@ -32,9 +32,9 @@ RSpec.describe 'Package API' do
       end
 
       it 'respond with 409 (conflict) if same package exists' do
-        package = create(:package)
+        package = Fabricate(:package)
 
-        params = attributes_for(:package_params) do |p|
+        params = Fabricate.attributes_for(:package_params) do |p|
           p[:name] = package.name
           p[:version] = package.versions.keys[0]
         end

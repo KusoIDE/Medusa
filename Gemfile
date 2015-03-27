@@ -56,6 +56,7 @@ group :development, :test do
   gem 'capybara-webkit'
   gem 'fabrication'
   gem 'api_matchers'
+  gem 'database_cleaner', '~>1.4.1'
   gem 'faker'
 end
 
