@@ -5,10 +5,7 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: 'json' } do
     namespace :v1 do
-      get '/packages/' => 'packages#index'
-      post '/packages/' => 'packages#create'
-      put '/packages/:package_name' => 'packages#update'
-      delete '/packages/:package_name' => 'packages#destroy'
+      resources :packages, constraints: { id: /[A-Z][A-Z][0-9][_-]+/ }
       get '/packages/archive-contents' => 'packages#archive_contents'
     end
   end

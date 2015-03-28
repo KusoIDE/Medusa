@@ -43,7 +43,6 @@ module Concerns::Package::Callbacks
 
   # Save the package and nested objects
   def save_version
-    puts "=======" * 40, checksum, dependencies
     new_version = PackageVersion.new(version: version,
                                      grid_fs_id: _fs.id,
                                      checksum: checksum,
