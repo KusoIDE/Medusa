@@ -28,28 +28,19 @@ RSpec.describe 'Package API' do
 
         post '/api/v1/packages', params
 
-        puts "---" * 50, response.body[15000,18000]
         expect(response.status).to eq(201)
         package = Package.find_by(name: params[:name])
         expect(package).to_not be(nil)
       end
 
       it 'respond with 409 (conflict) if same package exists' do
-        package = Fabricate(:package)
-
-        params = Fabricate.attributes_for(:package_params) do |p|
-          p[:name] = package.name
-          p[:version] = package.versions.keys[0]
-        end
+        params = Fabricate.attributes_for(:package_params)
 
         post '/api/v1/packages', params
-
-        puts "<<<<<<", response.body
+        post '/api/v1/packages', params
 
         expect(response.status).to eq(409)
-        expect(response.body).to have_node(:errors).includeing_text('already exists')
       end
-
     end
   end
 end

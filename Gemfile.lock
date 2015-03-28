@@ -352,7 +352,7 @@ DEPENDENCIES
   font-awesome-sass
   foreman
   guard-rspec
-  jbuilder (~> 2.0)
+  jbuilder
   jquery-rails (~> 4.0.0)
   mailcatcher
   mongoid

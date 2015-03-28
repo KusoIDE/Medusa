@@ -27,11 +27,19 @@ class Api::V1::PackagesController < ApiController
         # TODO: Add location to response header
         f.json { render nothing: true, status: :created }
       else
-        f.json { render json: package.errors, status: :unprocessable_entity }
+        if package.errors.messages.keys.include? :versions
+          f.json { render json: package.errors, status: 409 }
+        else
+          f.json { render json: package.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
 
+  def show
+    package = Package.find_by(name: params[:id])
+
+  end
 
   def update
   end
@@ -59,9 +67,9 @@ class Api::V1::PackagesController < ApiController
   def valid_package?(package)
     return false if package.nil?
 
-    fn   = package[:filename].present?
-    ct   = package[:content_type].present?
-    data = package[:data].present?
+    fn   = package['filename'].present?
+    ct   = package['content_type'].present?
+    data = package['data'].present?
 
     fn && ct && data
   end
