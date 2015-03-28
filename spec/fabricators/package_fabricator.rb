@@ -2,26 +2,15 @@ require 'faker'
 require 'base64'
 
 pkg_file = "#{Rails.root}/spec/fixtures/sample_pkg.tar"
-package_data = { filename: 'sample_pkg.tar',
-                 content_type: 'application/x-tar',
-                 data: Base64.strict_encode64(File.read(pkg_file))
-               }
+package_data_hash = { 'filename' =>  'sample_pkg.tar',
+  'content_type' => 'application/x-tar',
+  'data' => Base64.strict_encode64(File.read(pkg_file))
+}
 
 
 Fabricator :package do
   name { Faker::App.name }
   description { Faker::Lorem.paragraph }
-end
-
-
-Fabricator :package_params, from: :package do
-  name { Faker::App.name }
-  version { Faker::App.version }
-
-  description { Faker::Lorem.paragraph }
-  package { package_data }
-  dependencies []
-  dev_dependencies []
 
   home_page         { Faker::Internet.url }
   documentation_url { Faker::Internet.url }
@@ -29,6 +18,28 @@ Fabricator :package_params, from: :package do
   bug_tracker_url   { Faker::Internet.url }
   wiki_url          { Faker::Internet.url }
   source_code_url   { Faker::Internet.url }
+
+
+  authors { [Fabricate.build(:author)] }
+end
+
+Fabricator :stored_package, from: :package do
+  versions { [Fabricate.build(:package_version)] }
+
+  package_data { package_data_hash }
+  dependencies []
+  development_dependencies []
+end
+
+Fabricator :package_params, from: :package do
+  name { Faker::App.name }
+  version { Faker::App.version }
+
+  description { Faker::Lorem.paragraph }
+  package { package_data_hash }
+  dependencies []
+  dev_dependencies []
+
 
   authors [{ first_name: Faker::Name.name, last_name: Faker::Name.name,
              email: Faker::Internet.email }]

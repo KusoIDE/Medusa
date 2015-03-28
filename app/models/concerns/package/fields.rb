@@ -4,6 +4,7 @@ module Concerns::Package::Fields
 
   included do
     field :name
+    field :urlified_name
     field :description
 
     field :home_page,         default: ''

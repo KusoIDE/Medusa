@@ -10,4 +10,6 @@
 User.create!(first_name: 'Sameer', last_name: 'Rahmani',
             email: 'lxsameer@gnu.org', password: '123123123')
 
-Package.create!(name: 'test-package')
+1.upto 10 do
+  Fabricate(:stored_package)
+end

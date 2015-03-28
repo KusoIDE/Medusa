@@ -7,13 +7,11 @@ module Concerns::Package::Callbacks
   included do
 
     after_initialize :init
-
       # Upload and validate the package
     before_save :upload_file
-
     # Save the package and nested objects
     before_save :save_version
-
+    before_save :urlify_name
   end
 
   def init
@@ -108,5 +106,9 @@ module Concerns::Package::Callbacks
       return decoded_data
     end
     nil
+  end
+
+  def urlify_name
+    self.urlified_name = name.underscore
   end
 end
