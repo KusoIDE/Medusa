@@ -42,5 +42,22 @@ RSpec.describe 'Package API' do
         expect(response.status).to eq(409)
       end
     end
+
+    context 'getting a package' do
+      it 'returns a json of a valid package.' do
+        package = Fabricate(:stored_package)
+
+        get "/api/v1/packages/#{package.urlified_name}"
+
+        expect(response.status).to eq(200)
+        expect(response.body).to have_node(:name).including_text(package.name)
+      end
+
+      it 'returns 404 if package does not exists.' do
+        get "/api/v1/packages/some-package"
+
+        expect(response.status).to eq(404)
+      end
+    end
   end
 end

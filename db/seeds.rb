@@ -7,8 +7,10 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 
-#User.create!(first_name: 'Sameer', last_name: 'Rahmani',
- #           email: 'lxsameer@gnu.org', password: '123123123')
-user = User.last
-Package.create!(name: 'test-package', description: 'new pakcage this is just fucking test',
-                owner: user)
+
+User.create!(first_name: 'Sameer', last_name: 'Rahmani',
+            email: 'lxsameer@gnu.org', password: '123123123')
+
+1.upto 10 do
+  Fabricate(:stored_package)
+end

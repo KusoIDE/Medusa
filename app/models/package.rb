@@ -29,4 +29,12 @@ class Package
 
   index({ name: 1 }, { unique: true, background: true })
   index({ 'versions.version' => 1 }, { background: true })
+
+  def package_data
+    if !@package_data.kind_of? ActiveSupport::HashWithIndifferentAccess
+      ActiveSupport::HashWithIndifferentAccess.new @package_data
+    else
+      @package_data
+    end
+  end
 end

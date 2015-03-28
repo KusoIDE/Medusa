@@ -37,8 +37,15 @@ class Api::V1::PackagesController < ApiController
   end
 
   def show
-    package = Package.find_by(name: params[:id])
+    package = Package.find_by(urlified_name: params[:id])
 
+    respond_to do |f|
+      if package
+        f.json { render json: package }
+      else
+        f.json { render nothing: true, status: 404 }
+      end
+    end
   end
 
   def update
