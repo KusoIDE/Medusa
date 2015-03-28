@@ -1,0 +1,16 @@
+= content_for :content do
+  h1 Packages
+  - unless @packages.empty?
+    div class="list-group"
+      - @packages.each do |package|
+        a href="#"class="list-group-item"
+          h2 class="list-group-item-heading"
+            = package.name
+            span class="badge pull-right"
+              p = package.downloads
+              p Downloads
+              p class="list-group-item-text"
+                = package.description
+  - else
+    h3 class="alert alert-warning"
+      | There is no package to view

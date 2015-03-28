@@ -1,17 +1,17 @@
 $primary-color: #00BC8C;
 $primary-highlight: #09D8A3;
 .navbar-custom {
-  margin-top: 1%;
-  font-size: 1.8em;
+  margin: 2% 0 1% 0;
+  font-size: 1.6em;
 }
 .navbar-custom a {
-  padding: 2% 5% 0 5%;
+  padding: 7% 5% 0 5%;
   color: #fff;
   border-top: 10px solid $primary-highlight;
 }
 .navbar-custom a:link,
 .navbar-custom a:hover {
-  padding: 2% 5% 0 5%;
+  padding: 7% 5% 0 5%;
   text-decoration: none !important;
   border-top: 10px solid #373737;
 }
@@ -62,7 +62,8 @@ $primary-highlight: #09D8A3;
 .footer .license {
   position: absolute;
   bottom: 0;
-  margin: 0 25% 0 25%;
   color: #fff;
   font-size: 1.2em;
+  float: right;
+  margin: 0 30% 0 30%;
 }

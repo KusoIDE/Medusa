@@ -15,5 +15,5 @@ Rails.application.routes.draw do
 
   get '/packages/archive-contents' => 'api/v1/packages#archive_contents'
   root :to => 'site#index'
-
+  get '/packages' => 'site#packages'
 end
