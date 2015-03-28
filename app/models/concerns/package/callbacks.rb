@@ -109,6 +109,6 @@ module Concerns::Package::Callbacks
   end
 
   def urlify_name
-    self.urlified_name = name.underscore
+    self.urlified_name = name.parameterize
   end
 end
