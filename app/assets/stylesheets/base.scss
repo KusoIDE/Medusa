@@ -42,9 +42,11 @@ $primary-highlight: #09D8A3;
   background-color: #373737;
   font-size: 1.8em;
 }
-
+.contain {
+  margin-bottom: 10%;
+}
 .footer {
-  position: absolute;
+  position: relative;
   bottom: 0;
   width: 100%;
   height: 15%;

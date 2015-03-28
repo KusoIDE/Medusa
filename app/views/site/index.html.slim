@@ -9,6 +9,13 @@
           button class="btn btn-custom" id="search-btn" GO!
     div class="sub"
       a class="btn btn-big" HOW TO USE >
-
 = content_for :content do
-  p this is the first
+  div class="row"
+    div class="col-sm-8"
+      div class="description"
+        p Meduse is the Emacs community’s package hosting service.
+        p Instantly publish your packages and install them. Use the API to interact and find out more information about available packages.
+        p Become a contributor and enhance the site with your own changes.
+    div class="col-sm-2 counter"
+        p = @counter
+        p Total Downloads

@@ -15,7 +15,7 @@ $primary-highlight: #09D8A3;
   font-size: 3.0em;
 }
 .head .sub {
-  padding-top: 10%;
+  padding-top: 5%;
 }
 .head .sub button {
   width: 100px;
@@ -33,4 +33,14 @@ $primary-highlight: #09D8A3;
 }
 .search-box button {
   height: 61px;
+}
+.description {
+  font-size: 1.8em;
+  padding-bottom: 5%;
+}
+.counter {
+  background: orange;
+  text-align: center;
+  font-size: 1.4em;
+  margin-top: 5%;
 }
