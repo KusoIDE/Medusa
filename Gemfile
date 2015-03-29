@@ -79,3 +79,5 @@ gem 'foreman'
 gem 'paperclip'
 gem 'font-awesome-sass'
 gem 'jbuilder'
+
+gem 'mongoid-simple-tags'

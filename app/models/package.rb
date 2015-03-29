@@ -3,6 +3,8 @@ class Package
 
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Mongoid::Document::Taggable
+
   include Concerns::Package::Fields
   include Concerns::Package::Callbacks
   include Concerns::Package::Validations

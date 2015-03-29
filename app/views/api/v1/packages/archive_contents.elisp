@@ -1,9 +1,17 @@
 (1
- <% [].each do |package| %>
- (<%= package.name %>.
-      [(1 3)
-       nil"Interface to ack-like source code search tools" tar
-       ((:keywords "tools" "processes" "convenience")
-	(:url . "https://github.com/leoliu/ack-el"))])
+ <% @packages.each do |package| %>
+ (<%= package.urlified_name %> .
+      [(<%= package.elispified_version %>)
+       <% if package.have_dependencies? %>
+       (<% package.all_dependencies.each do |dep| %>
+         (dep.name (dep.elispified_version))
+       <% end %>
+       <% else %>
+       nil
+       <% end %>)
+       "<%= package.description %>"
+       <%= package.is_tar? ? "tar" : "single" %>
+       ((:keywords "<%= packages.tags %>")
+	(:url . "<%= package.home_page %>"))])
  <% end %>
  )

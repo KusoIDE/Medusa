@@ -27,7 +27,7 @@ Fabricator :stored_package, from: :package do
   versions { [Fabricate.build(:package_version)] }
 
   package_data { package_data_hash }
-  dependencies []
+  dependencies [{name: 'elib', version: '1.0.0' }]
   development_dependencies []
 end
 
