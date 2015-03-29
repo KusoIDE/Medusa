@@ -8,22 +8,21 @@ $primary-highlight: #09D8A3;
   height: 40%;
   width: 100%;
   padding: 5% 25% 1% 25%;
+  text-align: center;
+  margin-bottom: 2%;
 }
 .head h1 {
   font-size: 3.0em;
-  padding: 2% 10% 5% 10%;
-
 }
 .head .sub {
-  padding-top: 10%;
-  text-align: center;
+  padding-top: 5%;
 }
 .head .sub button {
   width: 100px;
 }
 
 .search-box {
-
+  padding-top: 10%;
 }
 
 .search-box input {
@@ -34,4 +33,14 @@ $primary-highlight: #09D8A3;
 }
 .search-box button {
   height: 61px;
+}
+.description {
+  font-size: 1.8em;
+  padding-bottom: 5%;
+}
+.counter {
+  background: orange;
+  text-align: center;
+  font-size: 1.4em;
+  margin-top: 5%;
 }
