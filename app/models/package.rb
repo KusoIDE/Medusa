@@ -40,4 +40,13 @@ class Package
     end
   end
 
+  def newer_version
+    versions.where(version: sorted_versions.last).first.version
+  end
+
+  def elispified_version(version = nil)
+    version = newer_version if version.nil?
+
+    version.gsub('.', ' ')
+  end
 end
