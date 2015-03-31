@@ -12,11 +12,14 @@ module Concerns::Package::Callbacks
     # Save the package and nested objects
     before_save :save_version
     before_save :urlify_name
+
+    before_save :reorder_versions
   end
 
   def init
     self.dependencies             ||= []
     self.development_dependencies ||= []
+    self.sorted_versions          ||= []
   end
 
   # Upload and validate the package
@@ -112,4 +115,12 @@ module Concerns::Package::Callbacks
   def urlify_name
     self.urlified_name = name.parameterize
   end
+
+  def reorder_versions
+    self.sorted_versions << version
+    self.sorted_versions = sorted_versions.sort do |a, b|
+      Gem::Version.new(a) <=> Gem::Version.new(b)
+    end
+  end
+
 end
