@@ -58,6 +58,15 @@ class Package
     recent_version.all_dependencies
   end
 
+  def is_tar?
+    # TODO: don't use this lazy solution
+    if recent_version.content_type == 'application/x-tar'
+      true
+    else
+      false
+    end
+  end
+
   private
 
   def recent_version

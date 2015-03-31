@@ -7,4 +7,8 @@ class PackageDependency
   field :name
 
   embedded_in :package_version
+
+  def elispified_version
+    version.gsub('.', ' ')
+  end
 end
