@@ -41,7 +41,7 @@ class Package
   end
 
   def newer_version
-    versions.where(version: sorted_versions.last).first.version
+    recent_version.version
   end
 
   def elispified_version(version = nil)
@@ -51,6 +51,16 @@ class Package
   end
 
   def have_dependencies?
-    versions.where(version: sorted_versions.last).have_dependencies?
+    recent_version.have_dependencies?
+  end
+
+  def all_dependencies
+    recent_version.all_dependencies
+  end
+
+  private
+
+  def recent_version
+    versions.where(version: sorted_versions.last).first
   end
 end

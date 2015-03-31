@@ -19,4 +19,8 @@ class PackageVersion
   def have_dependencies?
     !(dependencies.empty? || development_dependencies.empty?)
   end
+
+  def all_dependencies
+    dependencies + development_dependencies
+  end
 end
