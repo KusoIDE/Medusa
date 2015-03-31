@@ -39,4 +39,5 @@ class Package
       @package_data
     end
   end
+
 end

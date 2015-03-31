@@ -24,7 +24,7 @@ Fabricator :package do
 end
 
 Fabricator :stored_package, from: :package do
-  versions { [Fabricate.build(:package_version)] }
+  version Faker::App.version
 
   package_data { package_data_hash }
   dependencies [{name: 'elib', version: '1.0.0' }]

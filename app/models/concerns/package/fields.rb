@@ -15,6 +15,7 @@ module Concerns::Package::Fields
     field :source_code_url,   default: ''
 
     embeds_many :versions, class_name: 'PackageVersion'
+    field :sorted_versions, type: Array
 
     field :downloads, type: Integer, default: 0
     field :views,     type: Integer, default: 0

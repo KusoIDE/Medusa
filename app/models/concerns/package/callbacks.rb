@@ -44,7 +44,8 @@ module Concerns::Package::Callbacks
     new_version = PackageVersion.new(version: version,
                                      grid_fs_id: _fs.id,
                                      checksum: checksum,
-                                     content_type: package_data[:content_type])
+                                     content_type: package_data[:content_type],
+                                     created_at: Time.now)
 
     self.dependencies.each do |dep|
       new_version.dependencies << create_dependency(dep)
