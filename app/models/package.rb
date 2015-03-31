@@ -49,4 +49,8 @@ class Package
 
     version.gsub('.', ' ')
   end
+
+  def have_dependencies?
+    versions.where(version: sorted_versions.last).have_dependencies?
+  end
 end
