@@ -17,7 +17,7 @@ class PackageVersion
   embedded_in :package
 
   def have_dependencies?
-    !(dependencies.empty? || development_dependencies.empty?)
+    !(dependencies.empty? && development_dependencies.empty?)
   end
 
   def all_dependencies

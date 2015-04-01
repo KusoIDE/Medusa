@@ -4,11 +4,11 @@
       [(<%= package.elispified_version %>)
        <% if package.have_dependencies? %>
        (<% package.all_dependencies.each do |dep| %>
-         (dep.name (dep.elispified_version))
-       <% end %>
+         (<%= dep.name %> (<%= dep.elispified_version %>))
+       <% end %>)
        <% else %>
        nil
-       <% end %>)
+       <% end %>
        "<%= package.description %>"
        <%= package.is_tar? ? "tar" : "single" %>
        ((:keywords "<%= package.keywords %>")
