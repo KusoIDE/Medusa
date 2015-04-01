@@ -14,6 +14,8 @@ class PackageVersion
   embeds_many :dependencies, class_name: 'PackageDependency'
   embeds_many :development_dependencies, class_name: 'PackageDependency'
 
+  field :commentary
+
   embedded_in :package
 
   def have_dependencies?
