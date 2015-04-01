@@ -9,7 +9,7 @@ $primary-highlight: #09D8A3;
   color: #fff;
   border-top: 10px solid $primary-highlight;
 }
-.navbar-custom a:link,
+.navbar-custom a:focus,
 .navbar-custom a:hover {
   padding: 7% 5% 0 5%;
   text-decoration: none !important;

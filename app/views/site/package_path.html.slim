@@ -1,0 +1,61 @@
+= content_for :content do
+  div class="package"
+    h1 class="header"
+      = @package.name
+    div class="row"
+      div class="col-sm-8"
+        h3 = @package.description
+        div class="midle-box"
+          <!-- inja bayad version ha b linkamun gharar begire -->
+          div class="col-sm-6 render-versions"
+            h3
+              |versions :
+            - @package.versions.each do |version|
+              p
+                = version
+          <!-- inja bayad dependencie haye current versionemun print she -->
+          div class="col-sm-6 dependencies"
+            h3
+              |Dependencies :
+            - @package.versions.each do |version|
+              p
+                = version
+        div class="downbox"
+          div class="col-sm-6"
+            h3
+              |Authors :
+            - @package.authors.each do |author|
+              p
+                = author
+          div class="col-sm-6"
+            h3
+              |owners :
+            - @package.owners.each do |owner|
+              p
+                = owner
+      div class="col-sm-4 side"
+        div class="counter"
+          p
+            b = @package.downloads
+          p Total Downloads
+        <!-- niyaz be eslahe haj lxsameer dare inja-->
+        div class="version"
+          p
+            b = @package.versions.first.version
+          p Current Version
+        ul class="links"
+          li
+            a href="#"
+              | HomePage
+          li
+            a href="#"
+              | Document
+          li
+            a href="#"
+              | Download
+          li
+            a href="#"
+              | Wiki
+          li
+            a href="#"
+              | ReportBugs

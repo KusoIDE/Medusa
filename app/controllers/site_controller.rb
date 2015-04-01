@@ -11,7 +11,7 @@ class SiteController < ApplicationController
     @packages = Package.all
   end
 
-  def package(id)
-
+  def package_path
+    @package = Package.find(params[:id])
   end
 end

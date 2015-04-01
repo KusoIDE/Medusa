@@ -44,3 +44,56 @@ $primary-highlight: #09D8A3;
   font-size: 1.4em;
   margin-top: 5%;
 }
+.package {
+  padding: 5% 0 5% 0;
+}
+.package .header {
+  width: 100%;
+  border-bottom: 1px solid;
+  margin-bottom: 2%;
+}
+.package .side {
+  border-left: 1px solid;
+  padding-left: 5%;
+}
+.package .version {
+  background: $primary-color;
+  text-align: center;
+  font-size: 1.4em;
+  margin-top: 5%;
+}
+.package .links {
+  padding-top: 50%;
+  font-size: 1.6em;
+  list-style: none;
+}
+
+.package .links a {
+  padding-left: 5%;
+}
+.package .links a:hover {
+  text-decoration: none !important;
+  border-left: 10px solid;
+  color: #fff;
+}
+.package .midle-box{
+  margin-top: 20%;
+}
+.package .midle-box p {
+  font-size: 1.2em;
+}
+.package .midle-box h3 {
+  color: $primary-color;
+}
+.package .render-versions {
+  border-right: 1px solid;
+}
+.package .dependencies {
+  padding-left: 5%;
+}
+.package .downbox {
+  padding: 30% 0 15% 0;
+}
+.package .downbox h3{
+  color: #FFA500;
+}
