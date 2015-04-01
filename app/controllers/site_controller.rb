@@ -1,4 +1,5 @@
 class SiteController < ApplicationController
+
   def index
     packages = Package.all
     @counter = 0
@@ -12,6 +13,6 @@ class SiteController < ApplicationController
   end
 
   def package_path
-    @package = Package.find(params[:id])
+    @package = Package.find_by(urlified_name: params[:id])
   end
 end

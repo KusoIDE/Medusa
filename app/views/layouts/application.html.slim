@@ -8,18 +8,28 @@ html
     = csrf_meta_tags
 
 body
-  <!------- navbar --------------->
-  nav class="navbar navbar-fixed-top alert-success"
-    div class="container"
-      <!-- Brand and toggle get grouped for better mobile display -->
-      div class="navbar-header"
-        a class="navbar-brand" href="/"
-          img src="" alt="Medusa"
-      div class="navbar-custom navbar-right"
-          a href="/packages" Packages
-          a href="#" Link2
-          a href="#" Link3
-  <!------- endnavbar --------------->
+  <!------- navbar ------------------->
+   nav class="navbar navbar-fixed-top"
+      div class="container"
+        div class="navbar-header"
+          button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"
+            |Menu
+            span class="sr-only"
+              |Toggle navigation
+            span class="icon-bar"
+            span class="icon-bar"
+            span class="icon-bar"
+          a class="navbar-brand" href="/"
+            img src="" alt="Medusa"
+        div id="navbar" class="navbar-collapse collapse"
+          div class="navbar-custom navbar-right"
+            a href="/packages"
+              |Packages
+            a href="#about"
+              |Link1
+            a href="#contact"
+              |Link2
+
 
   <!-------------- headholder ----------------->
   = yield :head
@@ -44,4 +54,3 @@ body
         <!-------------endsocials-------------------->
       p class="license"
         GNU License GPL3 2015
-  <!--------------------endfooter------------------------>
