@@ -71,8 +71,6 @@ class Package
     tags.join(' ')
   end
 
-  private
-
   def recent_version
     versions.where(version: sorted_versions.last).first
   end

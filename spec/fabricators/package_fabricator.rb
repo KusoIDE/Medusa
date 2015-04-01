@@ -10,7 +10,7 @@ package_data_hash = { 'filename' =>  'sample_pkg.tar',
 
 Fabricator :package do
   name { Faker::App.name }
-  description { Faker::Lorem.paragraph }
+  description { Faker::Lorem.sentence }
 
   home_page         { Faker::Internet.url }
   documentation_url { Faker::Internet.url }
@@ -25,10 +25,10 @@ end
 
 Fabricator :stored_package, from: :package do
   version Faker::App.version
-
+  tag_list 'linux,emacs'
   package_data { package_data_hash }
-  dependencies [{name: 'elib', version: '1.0.0' }]
-  development_dependencies []
+  dependencies { { 'elib' => '1.0.0' } }
+  development_dependencies {}
 end
 
 Fabricator :package_params, from: :package do
@@ -37,8 +37,8 @@ Fabricator :package_params, from: :package do
 
   description { Faker::Lorem.paragraph }
   package { package_data_hash }
-  dependencies []
-  dev_dependencies []
+  dependencies { { 'elib' => '1.0.0' } }
+  dev_dependencies { { 'cask' => '1.3.0' } }
 
 
   authors [{ first_name: Faker::Name.name, last_name: Faker::Name.name,

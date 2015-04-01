@@ -6,7 +6,8 @@ class Api::V1::PackagesController < ApiController
     @packages = Package.all
     #respond_with @packages
     respond_to do |format|
-      format.html { render template: 'api/v1/packages/archive_contents' }
+      format.html { render template: 'api/v1/packages/archive_contents',
+        content_type:Mime::TEXT }
     end
   end
 
@@ -62,11 +63,11 @@ class Api::V1::PackagesController < ApiController
     params.require(:version)
     params.require(:description)
 
-    params.permit(:dependencies, :dev_dependencies, :home_page,
+    params.permit(:home_page,
                   :documentation_url, :download_url, :bug_tracker_url,
-                  :wiki_url, :source_code_url)
+                  :wiki_url, :source_code_url, :keywords)
 
-    params.permit(authors: [])
+    params.permit(authors: [], dependencies: [], dev_dependencies: [])
 
     params
   end
@@ -85,18 +86,21 @@ class Api::V1::PackagesController < ApiController
     package = Package.find_or_initialize_by(name: req_params.name)
 
     dev_deps = req_params.dev_dependencies || []
-    package.attributes = { version:      req_params.version,
-                           description:  req_params.description,
-                           package_data: req_params.package,
-                           dependencies: req_params.dependencies || [],
-                           development_dependencies: dev_deps,
-                           home_page:          req_params.home_page,
-                           documentation_url:  req_params.documentation_url,
-                           download_url:       req_params.download_url,
-                           bug_tracker_url:    req_params.bug_tracker_url,
-                           wiki_url:           req_params.wiki_url,
-                           source_code_url:    req_params.source_code_url,
-                           authors:            req_params.authors }
+    package.attributes = {
+      version:      req_params.version,
+      description:  req_params.description,
+      package_data: req_params.package,
+      dependencies: req_params.dependencies || [],
+      development_dependencies: dev_deps,
+      home_page:          req_params.home_page,
+      documentation_url:  req_params.documentation_url,
+      download_url:       req_params.download_url,
+      bug_tracker_url:    req_params.bug_tracker_url,
+      wiki_url:           req_params.wiki_url,
+      tag_list:           req_params.keywords,
+      source_code_url:    req_params.source_code_url,
+      authors:            req_params.authors
+    }
     package
   end
 end

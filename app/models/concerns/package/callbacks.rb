@@ -9,8 +9,6 @@ module Concerns::Package::Callbacks
     after_initialize :init
       # Upload and validate the package
     before_save :upload_file
-    # Save the package and nested objects
-    before_save :save_version
     before_save :urlify_name
 
     before_save :reorder_versions
@@ -24,6 +22,9 @@ module Concerns::Package::Callbacks
 
   # Upload and validate the package
   def upload_file
+
+    return true if !package_data.present? && version.nil?
+
     file_data = extract_data(package_data)
     filename, ext = process_name(package_data[:filename])
 
@@ -34,7 +35,9 @@ module Concerns::Package::Callbacks
 
       # TODO: Validate the content type
 
-      self._fs = Mongoid::GridFS.put(file)
+      fs = Mongoid::GridFS.put(file)
+      # Save the package and nested objects
+      save_version(fs)
 
       Rails.logger.info "PATH: #{filename} - #{package_data[:content_type]} - #{file_size}"
       Rails.logger.info "Buffer size: #{file_data.size}"
@@ -43,19 +46,19 @@ module Concerns::Package::Callbacks
   end
 
   # Save the package and nested objects
-  def save_version
+  def save_version(fs)
     new_version = PackageVersion.new(version: version,
-                                     grid_fs_id: _fs.id,
+                                     grid_fs_id: fs.id,
                                      checksum: checksum,
                                      content_type: package_data[:content_type],
                                      created_at: Time.now)
 
-    self.dependencies.each do |dep|
-      new_version.dependencies << create_dependency(dep)
+    self.dependencies.each do |dep, ver|
+      new_version.dependencies << create_dependency(dep, ver)
     end
 
-    self.development_dependencies.each do |dep|
-      new_version.development_dependencies << create_dependency(dep)
+    self.development_dependencies.each do |dep, ver|
+      new_version.development_dependencies << create_dependency(dep, ver)
     end
 
     self.versions << new_version
@@ -64,11 +67,11 @@ module Concerns::Package::Callbacks
   private
 
   # Create a dependency object
-  def create_dependency(dep)
-    name = dep[0]
-    version = dep[1] || ''
+  def create_dependency(dep, ver)
+    version = ver
+    version = '0' if ['', '*', 'latest'].include? ver
 
-    PackageDependency.new(name: name,
+    PackageDependency.new(name: dep,
                           version: version)
   end
 
@@ -123,4 +126,18 @@ module Concerns::Package::Callbacks
     end
   end
 
+  private
+
+  def valid_package_combination
+    return true if !package_data.present? && verions.nil?
+
+    if package_data.present?
+      fn   = package_data['filename'].present?
+      ct   = package_data['content_type'].present?
+      data = package_data['data'].present?
+
+      return true if (fn && ct && data) && !version.nil?
+    end
+    false
+  end
 end

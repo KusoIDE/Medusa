@@ -11,7 +11,7 @@
        <% end %>)
        "<%= package.description %>"
        <%= package.is_tar? ? "tar" : "single" %>
-       ((:keywords "<%= packages.keywords %>")
+       ((:keywords "<%= package.keywords %>")
 	(:url . "<%= package.home_page %>"))])
  <% end %>
  )

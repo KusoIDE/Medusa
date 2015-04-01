@@ -3,20 +3,24 @@ module Concerns::Package::Validations
 
   included do
     validate :unique_version
-    validate :valid_package_data, on: :create
+    validate :valid_package_data
     validate :base64_format, on: :create
-    #validate :valid_dependencies
+    validate :validate_dependencies
     #validate :content_type
   end
 
   def unique_version
-    if versions.where(version: version).exists?
-      errors.add :versions, 'Version already exists'
+    if !new_record? && version
+      if versions.where(version: version).exists?
+        errors.add :versions, 'Version already exists'
+      end
     end
   end
 
   def valid_package_data
-    if package_data.nil? || package_data.empty?
+    return true if !package_data.present? && version.nil? && !new_record?
+
+    if !package_data.present? && new_record?
       errors.add :package, 'Can not be nil or empty.'
       return false
     end
@@ -27,7 +31,10 @@ module Concerns::Package::Validations
 
     if !(fn && ct && data)
       errors.add :package, "Should contains 'filename', 'data', 'content_type'"
-      return false
+    end
+
+    if version.nil?
+      errors.add :version, '"version" is needed when "package_data" presents.'
     end
   end
 
@@ -38,6 +45,17 @@ module Concerns::Package::Validations
       @cached_content = Base64.strict_decode64(base64_part)
     rescue ArgumentError
       errors.add :package, 'Invalid base64'
+    end
+  end
+
+  def validate_dependencies
+    if dependencies.present? && !dependencies.kind_of?(Hash)
+      errors.add :dependencies, 'must be a hash.'
+    end
+
+    if development_dependencies.present? && \
+      !development_dependencies.kind_of?(Hash)
+      errors.add :development_dependencies, 'must be a hash'
     end
   end
 end
