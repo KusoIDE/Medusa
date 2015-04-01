@@ -3,7 +3,7 @@
   - unless @packages.empty?
     div class="list-group"
       - @packages.each do |package|
-        a href="#"class="list-group-item"
+        a href=("/packages/#{package.id}") class="list-group-item"
           h2 class="list-group-item-heading"
             = package.name
             span class="badge pull-right"

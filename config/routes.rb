@@ -13,5 +13,6 @@ Rails.application.routes.draw do
   get '/packages/archive-contents', to: 'api/v1/packages#archive_contents'
   root 'site#index'
   get '/packages', to: 'site#packages'
+  # route package ro mikhaim pagesh amadas roo controller id migire send mikone be view bade find kardan
 
 end
