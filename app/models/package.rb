@@ -67,6 +67,10 @@ class Package
     end
   end
 
+  def keywords
+    tags.join(' ')
+  end
+
   private
 
   def recent_version
