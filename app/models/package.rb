@@ -3,6 +3,8 @@ class Package
 
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Mongoid::Document::Taggable
+
   include Concerns::Package::Fields
   include Concerns::Package::Callbacks
   include Concerns::Package::Validations
@@ -36,5 +38,38 @@ class Package
     else
       @package_data
     end
+  end
+
+  def newer_version
+    recent_version.version
+  end
+
+  def elispified_version(version = nil)
+    version = newer_version if version.nil?
+
+    version.gsub('.', ' ')
+  end
+
+  def have_dependencies?
+    recent_version.have_dependencies?
+  end
+
+  def all_dependencies
+    recent_version.all_dependencies
+  end
+
+  def is_tar?
+    # TODO: don't use this lazy solution
+    if recent_version.content_type == 'application/x-tar'
+      true
+    else
+      false
+    end
+  end
+
+  private
+
+  def recent_version
+    versions.where(version: sorted_versions.last).first
   end
 end

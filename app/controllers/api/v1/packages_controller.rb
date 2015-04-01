@@ -3,7 +3,7 @@ require 'ostruct'
 class Api::V1::PackagesController < ApiController
 
   def archive_contents
-    @packages = Package.first
+    @packages = Package.all
     #respond_with @packages
     respond_to do |format|
       format.html { render template: 'api/v1/packages/archive_contents' }

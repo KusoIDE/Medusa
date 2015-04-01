@@ -10,8 +10,8 @@ Rails.application.routes.draw do
     end
   end
 
-  get '/packages/archive-contents' => 'api/v1/packages#archive_contents'
-  get '/packages' => 'site#packages'
-  get '/packages/:id' => 'site#package_path'
+  get '/packages/archive-contents', to: 'api/v1/packages#archive_contents'
   root 'site#index'
+  get '/packages', to: 'site#packages'
+
 end

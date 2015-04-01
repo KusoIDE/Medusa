@@ -15,4 +15,12 @@ class PackageVersion
   embeds_many :development_dependencies, class_name: 'PackageDependency'
 
   embedded_in :package
+
+  def have_dependencies?
+    !(dependencies.empty? || development_dependencies.empty?)
+  end
+
+  def all_dependencies
+    dependencies + development_dependencies
+  end
 end
