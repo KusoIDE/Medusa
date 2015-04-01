@@ -3,8 +3,8 @@
   - unless @packages.empty?
     div class="list-group"
       - @packages.each do |package|
-        a href=("/packages/#{package.id}") class="list-group-item"
-          h2 class="list-group-item-heading"
+        a href=("/packages/#{package.urlified_name}") class="list-group-item"
+          h2 class="list-group-item-text"
             = package.name
             span class="badge pull-right"
               p = package.downloads

@@ -1,5 +1,29 @@
-$primary-color: #00BC8C;
-$primary-highlight: #09D8A3;
+$primary-color: #58488A;
+$primary-highlight: #796ca1;
+body a{
+  color: $primary-highlight;
+}
+body a:hover{
+  color: #fff;
+}
+.list-group h2{
+  color: $primary-color;
+  padding-bottom: 1%;
+}
+.list-group p {
+  color: $primary-highlight;
+  padding-bottom: 1%;
+}
+.navbar {
+  background: $primary-color;
+}
+.navbar-toggle {
+  background: $primary-highlight;
+}
+.navbar-toggle:hover {
+  background: #fff;
+  color: $primary-highlight;
+}
 .navbar-custom {
   margin: 2% 0 1% 0;
   font-size: 1.6em;

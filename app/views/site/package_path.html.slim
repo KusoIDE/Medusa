@@ -12,21 +12,22 @@
               |versions :
             - @package.versions.each do |version|
               p
-                = version
-          <!-- inja bayad dependencie haye current versionemun print she -->
+                = version.version
           div class="col-sm-6 dependencies"
             h3
               |Dependencies :
-            - @package.versions.each do |version|
+            - @package.versions.last.dependencies.each do |dependency|
               p
-                = version
+                = dependency.name
+              p
+                = dependency.version
         div class="downbox"
           div class="col-sm-6"
             h3
               |Authors :
             - @package.authors.each do |author|
-              p
-                = author
+              h4
+                = author.name
           div class="col-sm-6"
             h3
               |owners :
@@ -38,24 +39,23 @@
           p
             b = @package.downloads
           p Total Downloads
-        <!-- niyaz be eslahe haj lxsameer dare inja-->
         div class="version"
           p
-            b = @package.versions.first.version
+            b = @package.versions.last.version
           p Current Version
         ul class="links"
           li
-            a href="#"
+            a target="_blank" href= @package.home_page
               | HomePage
           li
-            a href="#"
+            a target="_blank" href= @package.documentation_url
               | Document
           li
-            a href="#"
+            a target="_blank" href= @package.download_url
               | Download
           li
-            a href="#"
+            a target="_blank" href= @package.wiki_url
               | Wiki
           li
-            a href="#"
+            a target="_blank" href= @package.bug_tracker_url
               | ReportBugs
